@@ -54,7 +54,7 @@ import retrofit2.Response;
 
 
 public class ChatActivity extends BaseActivity implements OnImagePickedListener, View.OnClickListener {
-    public static final String EXTRA_DIALOG_ID = "dialogId";
+    public static final String EXTRA_DIALOG_ID = "dialogId";;
     private static final String TAG = ChatActivity.class.getSimpleName();
     private static final int REQUEST_CODE_ATTACHMENT = 721;
     private static final int REQUEST_CODE_SELECT_PEOPLE = 752;
