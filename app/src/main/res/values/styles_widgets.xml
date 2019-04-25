@@ -122,12 +122,13 @@
 
     <style name="TextViewTextMsg.Right">
         <item name="android:textColorHighlight">@color/color_light_blue_qb</item>
-        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textColor">@color/text_color_dark_grey</item>
     </style>
 
     <style name="TextViewTimeMsg.Right">
         <item name="android:layout_gravity">right</item>
         <item name="android:textColor">@color/text_color_dark_grey</item>
+
     </style>
 
     <style name="LinearAttachWidgetFrame.Left">
@@ -153,5 +154,16 @@
 
     <style name="BubbleAttachFrame.Right">
         <item name="android:background">@drawable/chat_back_right</item>
+    </style>
+
+    <style name="BubbleTextFrame">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">@dimen/chat_babble_margin</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
 </resources>

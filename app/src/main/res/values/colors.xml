@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#CA1521</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
@@ -33,4 +33,6 @@
     <color name="random_color_8">#d0021b</color>
     <color name="random_color_9">#166642</color>
     <color name="random_color_10">#bdbdbd</color>
+
+    <color name="appThemeColor">#CA1521</color>
 </resources>

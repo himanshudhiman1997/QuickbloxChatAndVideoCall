@@ -6,5 +6,8 @@
         android:bottomRightRadius="0dp"
         android:topLeftRadius="@dimen/spacing_10"
         android:topRightRadius="@dimen/spacing_10" />
-    <solid android:color="@color/green" />
+    <!--<solid android:color="@color/green" />-->
+
+    <stroke android:width="@dimen/spacing_2"
+        android:color="@color/green"/>
 </shape>
