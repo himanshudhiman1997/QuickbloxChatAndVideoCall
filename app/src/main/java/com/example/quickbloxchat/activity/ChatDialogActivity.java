@@ -11,23 +11,30 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.example.quickbloxchat.ChatHelper;
+import com.example.quickbloxchat.ItemClickListener;
 import com.example.quickbloxchat.adapter.ChatDialogAdapter;
 import com.example.quickbloxchat.R;
+import com.example.quickbloxchat.qb.QbDialogHolder;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBRestChatService;
 import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.request.QBRequestGetBuilder;
+import com.quickblox.sample.core.ui.dialog.ProgressDialogFragment;
 import com.quickblox.users.model.QBUser;
 
 import java.util.ArrayList;
 
-public class ChatDialogActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChatDialogActivity extends AppCompatActivity implements View.OnClickListener, ItemClickListener {
 
     private FloatingActionButton floatingActionButton;
 
     private RecyclerView recyclerView;
+    public static final String EXTRA_QB_USERS = "qb_users";
+
+    private ArrayList<QBUser> users = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class ChatDialogActivity extends AppCompatActivity implements View.OnClic
                 recyclerView.setLayoutManager(new LinearLayoutManager(ChatDialogActivity.this));
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(chatDialogAdapter);
+                chatDialogAdapter.setItemClickListener(ChatDialogActivity.this);
             }
 
             @Override
@@ -125,4 +133,30 @@ public class ChatDialogActivity extends AppCompatActivity implements View.OnClic
         super.onResume();
         loadChatDialogs();
     }
+
+    @Override
+    public void onClick1(View view, int position) {
+        //ChatActions();
+    }
+
+//    private void ChatActions() {
+//
+//
+//        users.add(QBChatService.getInstance().getUser());
+//
+//        users.add(SellerQbUser);
+//
+//        if (isPrivateDialogExist(users)) {
+//            users.remove(ChatHelper.getCurrentUser());
+//            QBChatDialog existingPrivateDialog = QbDialogHolder.getInstance().getPrivateDialogWithUser(users.get(0));
+//
+//            ChatActivity.startForResult(activity, REQUEST_DIALOG_ID_FOR_UPDATE, existingPrivateDialog);
+//            users.clear();
+//        } else {
+//            ProgressDialogFragment.show(getSupportFragmentManager(), R.string.loading_chat);
+//            createDialog(users);
+//            users.clear();
+//        }
+//
+//    }
 }

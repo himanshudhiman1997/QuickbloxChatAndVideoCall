@@ -3,4 +3,20 @@
     <string name="connection_error">Connection has been dropped.</string>
     <string name="reconnect_alert">Reconnecting in %s seconds</string>
     <string name="public_group_chat_cannot_be_deleted">Public group chat cannot be deleted</string>
+    <string name="menu_chat_info">Chat Info</string>
+    <string name="menu_add_users_to_chat">Add users to chat</string>
+    <string name="menu_leave_chat">Leave Chat</string>
+    <string name="menu_delete_chat">Delete Chat</string>
+    <string name="menu_dialogs_delete">Delete</string>
+    <string name="menu_dialogs_logout">Logout</string>
+    <string name="error_leave_chat">Error leaving room</string>
+    <string name="chat_wait_for_attachments_to_upload">Wait for all attachments to upload</string>
+    <string name="chat_unsupported_type">Unsupported dialog type</string>
+    <string name="chat_info_add_people_error">Add people errors</string>
+    <string name="chat_load_users_error">Load chat user error</string>
+    <string name="dialogs_deletion_error">Dialog deletion error.</string>
+    <string name="loading_chat">Loading Chat...</string>
+    <string name="hi_how_are_you_upkar">Hi how are you upkar</string>
+    <string name="_3_30_pm">3:30 PM</string>
+    <string name="hi_annie_i_am_good">Hi annie</string>
 </resources>

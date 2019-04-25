@@ -1576,6 +1576,8 @@ string cast_tracks_chooser_dialog_ok
 string cast_tracks_chooser_dialog_subtitles
 string cast_unmute
 string character_counter_pattern
+string chat_edit_text_hint
+string chat_send
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
 string common_google_play_services_enable_title

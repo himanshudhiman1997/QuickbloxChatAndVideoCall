@@ -19,9 +19,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import com.example.quickbloxchat.AttachmentPreviewAdapterView;
 import com.example.quickbloxchat.ChatHelper;
 import com.example.quickbloxchat.R;
+import com.example.quickbloxchat.adapter.AttachmentPreviewAdapter;
+import com.example.quickbloxchat.adapter.ChatAdapter;
+import com.example.quickbloxchat.qb.PaginationHistoryListener;
+import com.example.quickbloxchat.qb.QbChatDialogMessageListenerImp;
 import com.example.quickbloxchat.qb.QbDialogHolder;
+import com.example.quickbloxchat.qb.QbDialogUtils;
+import com.example.quickbloxchat.qb.VerboseQbChatConnectionListener;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.model.QBAttachment;
 import com.quickblox.chat.model.QBChatDialog;
@@ -35,6 +42,7 @@ import com.quickblox.sample.core.utils.imagepick.ImagePickHelper;
 import com.quickblox.sample.core.utils.imagepick.OnImagePickedListener;
 import com.quickblox.ui.kit.chatmessage.adapter.listeners.QBChatAttachClickListener;
 import com.quickblox.users.model.QBUser;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 
 import org.jivesoftware.smack.ConnectionListener;
@@ -46,11 +54,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class ChatActivity extends BaseActivity implements OnImagePickedListener, View.OnClickListener {
@@ -106,7 +109,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
 
         initChat();
 
-        OnlineOflineAction("1");
+        //OnlineOflineAction("1");
     }
 
     private void setUpAppBar() {
@@ -156,7 +159,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
     public void onBackPressed() {
         releaseChat();
         sendDialogId();
-        OnlineOflineAction("0");
+        //OnlineOflineAction("0");
 
         super.onBackPressed();
     }
@@ -226,7 +229,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CODE_SELECT_PEOPLE) {
                 ArrayList<QBUser> selectedUsers = (ArrayList<QBUser>) data.getSerializableExtra(
-                        ProductDetailsActivity.EXTRA_QB_USERS);
+                        ListUsersActivity.EXTRA_QB_USERS);
 
                 updateDialog(selectedUsers);
             }
@@ -373,10 +376,10 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
             }
 
             if (attachment != null) {
-                sendNotification("", "");
+                //sendNotification("", "");
                 attachmentPreviewAdapter.remove(attachment);
             } else {
-                sendNotification(text, "");
+                //sendNotification(text, "");
                 messageEditText.setText("");
             }
         } catch (SmackException.NotConnectedException e) {
@@ -613,53 +616,53 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         }
     }
 
-    private void sendNotification(String text, String attachemnt) {
+//    private void sendNotification(String text, String attachemnt) {
+//
+//        if (CommonUtil.isNetworkConnected(ChatActivity.this)) {
+//            RetrofitApi.getApi();
+//            ApiService apiService = RetrofitApi.retrofit.create(ApiService.class);
+//
+//            apiService.SendMessage(qbChatDialog.getUserId() + "", qbChatDialog.getRecipientId() + "", text).enqueue(new Callback<Map>() {
+//                @Override
+//                public void onResponse(Call<Map> call, Response<Map> response) {
+//                    if (response.isSuccessful()) {
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Map> call, Throwable t) {
+//
+//                }
+//            });
+//
+//
+//        }
+//
+//
+//    }
 
-        if (CommonUtil.isNetworkConnected(ChatActivity.this)) {
-            RetrofitApi.getApi();
-            ApiService apiService = RetrofitApi.retrofit.create(ApiService.class);
 
-            apiService.SendMessage(qbChatDialog.getUserId() + "", qbChatDialog.getRecipientId() + "", text).enqueue(new Callback<Map>() {
-                @Override
-                public void onResponse(Call<Map> call, Response<Map> response) {
-                    if (response.isSuccessful()) {
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Map> call, Throwable t) {
-
-                }
-            });
-
-
-        }
-
-
-    }
-
-
-    private void OnlineOflineAction(String status) {
-
-        if (CommonUtil.isNetworkConnected(ChatActivity.this)) {
-            RetrofitApi.getApi();
-            ApiService apiService = RetrofitApi.retrofit.create(ApiService.class);
-            apiService.GoOnlineOfline(status, CommonUtil.getUserid(ChatActivity.this)).enqueue(new Callback<Map>() {
-                @Override
-                public void onResponse(Call<Map> call, Response<Map> response) {
-                    if (response.isSuccessful()) {
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Map> call, Throwable t) {
-
-                }
-            });
-
-        }
-
-    }
+//    private void OnlineOflineAction(String status) {
+//
+//        if (CommonUtil.isNetworkConnected(ChatActivity.this)) {
+//            RetrofitApi.getApi();
+//            ApiService apiService = RetrofitApi.retrofit.create(ApiService.class);
+//            apiService.GoOnlineOfline(status, CommonUtil.getUserid(ChatActivity.this)).enqueue(new Callback<Map>() {
+//                @Override
+//                public void onResponse(Call<Map> call, Response<Map> response) {
+//                    if (response.isSuccessful()) {
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Map> call, Throwable t) {
+//
+//                }
+//            });
+//
+//        }
+//
+//    }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.example.quickbloxchat.ItemClickListener;
 import com.example.quickbloxchat.R;
 import com.quickblox.chat.model.QBChatDialog;
 
@@ -22,7 +23,9 @@ public class ChatDialogAdapter extends RecyclerView.Adapter<ChatDialogAdapter.My
     private Context context;
     private List<QBChatDialog> list;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
+    private ItemClickListener itemClickListener;
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         ImageView chatDialogImage;
         TextView titleTextView;
@@ -33,8 +36,20 @@ public class ChatDialogAdapter extends RecyclerView.Adapter<ChatDialogAdapter.My
             chatDialogImage = itemView.findViewById(R.id.chat_dialog_image_view);
             titleTextView = itemView.findViewById(R.id.chat_dialog_title);
             messageTextView = itemView.findViewById(R.id.chat_dialog_message);
-
+            chatDialogImage.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if(itemClickListener!=null)
+            {
+                itemClickListener.onClick1(v, getAdapterPosition());
+            }
+        }
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     public ChatDialogAdapter(Context context, List<QBChatDialog> list) {

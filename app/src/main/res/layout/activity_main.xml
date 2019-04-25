@@ -30,6 +30,7 @@
             <EditText
                 android:id="@+id/main_editLogin"
                 android:hint="Enter username"
+                android:text="qwerty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
@@ -41,6 +42,7 @@
             <EditText
                 android:id="@+id/main_editPassword"
                 android:hint="Enter password"
+                android:text="qwerty12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
