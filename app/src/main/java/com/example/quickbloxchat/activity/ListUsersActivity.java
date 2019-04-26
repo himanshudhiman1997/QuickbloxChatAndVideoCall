@@ -162,8 +162,6 @@ public class ListUsersActivity extends AppCompatActivity implements View.OnClick
                         dialogsManager.sendSystemMessageAboutCreatingDialog(systemMessagesManager, dialog);
                         ChatActivity.startForResult(ListUsersActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, dialog);
                         ProgressDialogFragment.hide(getSupportFragmentManager());
-
-
                     }
 
                     @Override
