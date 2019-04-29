@@ -77,6 +77,7 @@ public class ChatAdapter extends QBMessagesAdapter<QBChatMessage> implements Sti
 
         opponentNameTextView.setTextColor(UiUtils.getRandomTextColorById(chatMessage.getSenderId()));
         opponentNameTextView.setText(getSenderName(chatMessage));
+        opponentNameTextView.setVisibility(View.GONE);
 
         TextView customMessageTimeTextView = holder.itemView.findViewById(R.id.custom_msg_text_time_message);
         customMessageTimeTextView.setText(getDate(chatMessage.getDateSent()));

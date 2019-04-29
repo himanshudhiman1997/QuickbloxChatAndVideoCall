@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_chat_container"
     style="@style/MatchParent"
-    tools:ignore="RtlHardcoded"
-    android:background="@color/white">
+    android:background="#535E6F"
+    tools:ignore="RtlHardcoded">
 
     <!--<com.dynamitechetan.flowinggradient.FlowingGradient-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
 
     <include
         android:id="@+id/app_bar"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         android:orientation="horizontal">
 
         <ImageButton
@@ -70,11 +70,13 @@
             android:id="@+id/edit_chat_message"
             style="@style/WeightWidth"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:background="@drawable/chat_date_bubble"
+            android:gravity="left|center_vertical"
             android:hint="@string/chat_edit_text_hint"
             android:inputType="textShortMessage"
-            android:maxLength="1024" />
+            android:maxLength="1024"
+            android:paddingLeft="@dimen/spacing_10" />
 
         <ImageButton
             android:id="@+id/button_chat_send"

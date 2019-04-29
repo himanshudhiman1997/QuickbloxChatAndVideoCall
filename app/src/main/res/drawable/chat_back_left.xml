@@ -9,6 +9,8 @@
     <!--<solid android:color="@color/random_color_1" />-->
 
     <stroke
-        android:color="@color/random_color_1"
+        android:color="#fff"
         android:width="@dimen/spacing_2"/>
+    <solid
+        android:color="@color/white"/>
 </shape>

@@ -8,6 +8,7 @@
         style="@style/MessageAuthorStyle"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         tools:text="Opponent Name" />
 
     <TextView
