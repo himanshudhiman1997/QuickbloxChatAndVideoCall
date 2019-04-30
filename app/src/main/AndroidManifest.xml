@@ -3,40 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.quickbloxchat">
 
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ListUsersActivity"></activity>
+        <activity android:name=".activity.VideoCallActivity"></activity>
+        <activity android:name=".activity.ListUsersActivity" />
         <activity android:name=".activity.ChatDialogActivity" />
         <activity android:name=".activity.SignUpActivity" />
-        <activity android:name=".activity.ChatActivity"/>
-        <activity android:name=".activity.AttachmentImageActivity"/>
+        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.AttachmentImageActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.quickblox.messages.TYPE"
-            android:value="GCM" />
-        <!--<meta-data-->
-            <!--android:name="com.quickblox.messages.SENDER_ID"-->
-            <!--android:value="@string/sender_id" />-->
+            android:value="GCM" /> <!-- <meta-data -->
+        <!-- android:name="com.quickblox.messages.SENDER_ID" -->
+        <!-- android:value="@string/sender_id" /> -->
         <meta-data
             android:name="com.quickblox.messages.QB_ENVIRONMENT"
             android:value="DEVELOPMENT" />

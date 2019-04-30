@@ -46,4 +46,7 @@ dependencies {
 
     implementation 'com.dynamitechetan.flowinggradient:flowinggradient:1.1'
 
+    //video call
+    implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:3.7.0"
+
 }

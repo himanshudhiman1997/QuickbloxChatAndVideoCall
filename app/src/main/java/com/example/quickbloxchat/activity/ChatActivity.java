@@ -33,6 +33,9 @@ import com.example.quickbloxchat.qb.QbDialogHolder;
 import com.example.quickbloxchat.qb.QbDialogUtils;
 import com.example.quickbloxchat.qb.VerboseQbChatConnectionListener;
 import com.quickblox.chat.QBChatService;
+import com.quickblox.chat.QBSignaling;
+import com.quickblox.chat.QBWebRTCSignaling;
+import com.quickblox.chat.listeners.QBVideoChatSignalingManagerListener;
 import com.quickblox.chat.model.QBAttachment;
 import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.chat.model.QBChatMessage;
@@ -45,6 +48,7 @@ import com.quickblox.sample.core.utils.imagepick.ImagePickHelper;
 import com.quickblox.sample.core.utils.imagepick.OnImagePickedListener;
 import com.quickblox.ui.kit.chatmessage.adapter.listeners.QBChatAttachClickListener;
 import com.quickblox.users.model.QBUser;
+import com.quickblox.videochat.webrtc.QBRTCClient;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 
@@ -115,7 +119,11 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         initChat();
 
         //OnlineOflineAction("1");
+
+
     }
+
+
 
     private void setUpAppBar() {
 

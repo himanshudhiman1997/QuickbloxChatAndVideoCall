@@ -8,5 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EndCallImageButton" parent="RoundedImageButton">
+        <item name="android:background">@drawable/selector_call_end</item>
+        <item name="android:src">@drawable/ic_phone_hangup</item>
+    </style>
 
+    <style name="RoundedImageButton">
+        <item name="android:layout_width">@dimen/call_buttons_diameter</item>
+        <item name="android:layout_height">@dimen/call_buttons_diameter</item>
+        <item name="android:padding">@dimen/call_buttons_padding</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="ToolbarStyleCall" parent="Widget.AppCompat.Toolbar">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+    </style>
+
+    <style name="CallerAvatar">
+        <item name="android:layout_width">@dimen/call_avatar_diameter</item>
+        <item name="android:layout_height">@dimen/call_avatar_diameter</item>
+        <item name="android:padding">24dp</item>
+        <item name="android:src">@drawable/ic_user</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
 </resources>

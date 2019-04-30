@@ -35,4 +35,19 @@
     <color name="random_color_10">#bdbdbd</color>
 
     <color name="appThemeColor">#CA1521</color>
+
+    <color name="background_fragment_conversation">#2b2a2a</color>
+    <color name="black_transparent_50">#30000000</color>
+    <color name="grey_transparent_50">#50606060</color>
+    <color name="button_end_call_pressed_color">#FC5876</color>
+
+    <color name="text_color_call_type">#6e6e6e</color>
+    <color name="text_color_also_on_call">@color/text_color_call_type</color>
+    <color name="text_color_other_inc_users">#1f1f1f</color>
+    <color name="text_color_caller_name">#1f1f1f</color>
+
+    <color name="toolbar_subtitle_color">#6e6e6e</color>
+    <color name="toolbar_title_color">#1f1f1f</color>
+
+    <color name="text_color_outgoing_opponents_names_audio_call">#1f1f1f</color>
 </resources>
