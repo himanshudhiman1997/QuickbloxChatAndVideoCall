@@ -50,4 +50,6 @@
     <color name="toolbar_title_color">#1f1f1f</color>
 
     <color name="text_color_outgoing_opponents_names_audio_call">#1f1f1f</color>
+    <color name="grey_transparent_20">#20606060</color>
+    <color name="white_green">#A9FF80</color>
 </resources>

@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.quickbloxchat.fragment.PreviewFragment;
+
 
 public class ScreenShareFragment extends BaseToolBarFragment {
 

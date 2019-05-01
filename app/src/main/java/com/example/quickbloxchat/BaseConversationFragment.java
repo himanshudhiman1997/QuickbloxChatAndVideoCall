@@ -14,11 +14,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.omninos.secretdoors.activity.CallActivity;
-import com.omninos.secretdoors.db.QbUsersDbManager;
-import com.omninos.secretdoors.uitls.CollectionsUtils;
-import com.omninos.secretdoors.uitls.UsersUtils;
-import com.omninos.secretdoors.uitls.WebRtcSessionManager;
+import com.example.quickbloxchat.activity.CallActivity;
+import com.example.quickbloxchat.db.QbUsersDbManager;
+import com.example.quickbloxchat.utils.CollectionsUtils;
+
+import com.example.quickbloxchat.utils.UsersUtils;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCSession;

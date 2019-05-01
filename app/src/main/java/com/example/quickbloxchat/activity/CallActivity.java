@@ -35,6 +35,7 @@ import com.example.quickbloxchat.db.QbUsersDbManager;
 import com.example.quickbloxchat.utils.FragmentExecuotr;
 import com.example.quickbloxchat.utils.PermissionsChecker;
 import com.example.quickbloxchat.utils.SettingsUtil;
+import com.example.quickbloxchat.utils.UsersUtils;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallbackImpl;
 import com.quickblox.sample.core.utils.Toaster;
@@ -61,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * QuickBlox team
@@ -154,11 +156,14 @@ public class CallActivity extends BaseActivity implements QBRTCClientSessionCall
     }
 
     private void startAudioManager() {
-        audioManager.start((selectedAudioDevice, availableAudioDevices) -> {
-            //Toaster.shortToast("Audio device switched to  " + selectedAudioDevice);
+        audioManager.start(new AppRTCAudioManager.AudioManagerEvents() {
+            @Override
+            public void onAudioDeviceChanged(AppRTCAudioManager.AudioDevice selectedAudioDevice, Set<AppRTCAudioManager.AudioDevice> availableAudioDevices) {
+                //Toaster.shortToast("Audio device switched to  " + selectedAudioDevice);
 
-            if (onChangeAudioDeviceCallback != null) {
-                onChangeAudioDeviceCallback.audioDeviceChanged(selectedAudioDevice);
+                if (onChangeAudioDeviceCallback != null) {
+                    onChangeAudioDeviceCallback.audioDeviceChanged(selectedAudioDevice);
+                }
             }
         });
     }
@@ -268,15 +273,21 @@ public class CallActivity extends BaseActivity implements QBRTCClientSessionCall
             Log.d(TAG, "AppRTCAudioManager.AudioDevice.EARPIECE");
         }
 
-        audioManager.setOnWiredHeadsetStateListener((plugged, hasMicrophone) -> {
-            if (callStarted) {
-                Toaster.shortToast("Headset " + (plugged ? "plugged" : "unplugged"));
+        audioManager.setOnWiredHeadsetStateListener(new AppRTCAudioManager.OnWiredHeadsetStateListener() {
+            @Override
+            public void onWiredHeadsetStateChanged(boolean plugged, boolean hasMicrophone) {
+                if (callStarted) {
+                    Toaster.shortToast("Headset " + (plugged ? "plugged" : "unplugged"));
+                }
             }
         });
 
-        audioManager.setBluetoothAudioDeviceStateListener(connected -> {
-            if (callStarted) {
-                Toaster.shortToast("Bluetooth " + (connected ? "connected" : "disconnected"));
+        audioManager.setBluetoothAudioDeviceStateListener(new AppRTCAudioManager.BluetoothAudioDeviceStateListener() {
+            @Override
+            public void onStateChanged(boolean connected) {
+                if (callStarted) {
+                    Toaster.shortToast("Bluetooth " + (connected ? "connected" : "disconnected"));
+                }
             }
         });
     }
@@ -762,12 +773,7 @@ public class CallActivity extends BaseActivity implements QBRTCClientSessionCall
     }
 
     @Override
-    public void removeOnChangeAudioDeviceCallback(OnChangeAudioDevice onChangeDynamicCallback) {
-
-    }
-
-    @Override
-    public void addOnChangeAudioDeviceCallback(OnChangeAudioDevice onChangeDynamicCallback) {
+    public void addCurrentCallStateCallback(CurrentCallStateCallback currentCallStateCallback) {
 
     }
 
@@ -777,7 +783,12 @@ public class CallActivity extends BaseActivity implements QBRTCClientSessionCall
     }
 
     @Override
-    public void addCurrentCallStateCallback(CurrentCallStateCallback currentCallStateCallback) {
+    public void addOnChangeAudioDeviceCallback(OnChangeAudioDevice onChangeDynamicCallback) {
+
+    }
+
+    @Override
+    public void removeOnChangeAudioDeviceCallback(OnChangeAudioDevice onChangeDynamicCallback) {
 
     }
 

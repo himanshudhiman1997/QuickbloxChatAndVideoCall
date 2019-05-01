@@ -1,7 +1,8 @@
-package com.example.quickbloxchat;
+package com.example.quickbloxchat.utils;
 
 import android.util.SparseArray;
 
+import com.example.quickbloxchat.R;
 import com.quickblox.videochat.webrtc.QBRTCTypes;
 
 public class QBRTCSessionUtils {

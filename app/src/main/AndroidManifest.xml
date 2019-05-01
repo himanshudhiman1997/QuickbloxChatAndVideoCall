@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -26,6 +27,11 @@
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.AttachmentImageActivity" />
+        <service android:name=".activity.services.CallService" />
+
+        <activity android:name=".activity.PermissionsActivity"/>
+
+        <activity android:name=".activity.CallActivity"/>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

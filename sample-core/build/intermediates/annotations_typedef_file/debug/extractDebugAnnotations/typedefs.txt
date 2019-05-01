@@ -1,1 +1,0 @@
-D com/quickblox/sample/core/utils/Toaster$ToastLength

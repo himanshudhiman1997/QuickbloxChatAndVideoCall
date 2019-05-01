@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="pref_frame_rate_max_value">30</integer>
+    <integer name="pref_answer_time_interval_max_value">90</integer>
+    <integer name="pref_disconnect_time_interval_max_value">90</integer>
+    <integer name="pref_dialing_time_interval_max_value">10</integer>
+    <integer name="pref_default_int_value">0</integer>
+    <integer name="pref_startbitratevalue_max_value">2000</integer>
+    <integer name="pref_startbitratevalue_min_value">0</integer>
+
+    <integer name="pref_startbitratevalue_step_size">100</integer>
+
+
+</resources>

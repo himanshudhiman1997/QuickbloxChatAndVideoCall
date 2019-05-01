@@ -128,4 +128,6 @@
     <dimen name="other_inc_users_text_size">16sp</dimen>
     <dimen name="grid_item_divider">1dp</dimen>
     <dimen name="item_height">136dp</dimen>
+    <dimen name="incoming_call_type_text_size">15sp</dimen>
+    <dimen name="padding_bottom">20dp</dimen>
 </resources>

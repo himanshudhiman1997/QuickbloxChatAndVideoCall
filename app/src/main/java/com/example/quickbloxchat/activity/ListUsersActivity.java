@@ -135,11 +135,11 @@ public class ListUsersActivity extends AppCompatActivity implements View.OnClick
             bothUsersList.remove(ChatHelper.getCurrentUser());
             QBChatDialog existingPrivateDialog = QbDialogHolder.getInstance().getPrivateDialogWithUser(bothUsersList.get(0));
 
-            ChatActivity.startForResult(ListUsersActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, existingPrivateDialog);
+            ChatActivity.startForResult(ListUsersActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, existingPrivateDialog, qbUser.getId());
             bothUsersList.clear();
         } else {
             ProgressDialogFragment.show(getSupportFragmentManager(), R.string.loading_chat);
-            createDialog(bothUsersList);
+            createDialog(bothUsersList, qbUser.getId());
             bothUsersList.clear();
         }
 
@@ -153,14 +153,14 @@ public class ListUsersActivity extends AppCompatActivity implements View.OnClick
         return selectedUsers.size() == 1 && QbDialogHolder.getInstance().hasPrivateDialogWithUser(selectedUsers.get(0));
     }
 
-    private void createDialog(final ArrayList<QBUser> selectedUsers) {
+    private void createDialog(final ArrayList<QBUser> selectedUsers, final int userId) {
         ChatHelper.getInstance().createDialogWithSelectedUsers(selectedUsers,
                 new QBEntityCallback<QBChatDialog>() {
                     @Override
                     public void onSuccess(QBChatDialog dialog, Bundle args) {
 
                         dialogsManager.sendSystemMessageAboutCreatingDialog(systemMessagesManager, dialog);
-                        ChatActivity.startForResult(ListUsersActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, dialog);
+                        ChatActivity.startForResult(ListUsersActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, dialog,userId);
                         ProgressDialogFragment.hide(getSupportFragmentManager());
                     }
 

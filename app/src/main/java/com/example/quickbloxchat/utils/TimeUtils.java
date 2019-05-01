@@ -1,4 +1,4 @@
-package com.example.quickbloxchat;
+package com.example.quickbloxchat.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

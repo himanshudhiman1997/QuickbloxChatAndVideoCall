@@ -1,9 +1,11 @@
 package com.example.quickbloxchat.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +22,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.quickbloxchat.AttachmentPreviewAdapterView;
 import com.example.quickbloxchat.ChatHelper;
+import com.example.quickbloxchat.Consts;
 import com.example.quickbloxchat.R;
+import com.example.quickbloxchat.WebRtcSessionManager;
+import com.example.quickbloxchat.activity.services.CallService;
 import com.example.quickbloxchat.adapter.AttachmentPreviewAdapter;
 import com.example.quickbloxchat.adapter.ChatAdapter;
 import com.example.quickbloxchat.qb.PaginationHistoryListener;
@@ -32,6 +38,7 @@ import com.example.quickbloxchat.qb.QbChatDialogMessageListenerImp;
 import com.example.quickbloxchat.qb.QbDialogHolder;
 import com.example.quickbloxchat.qb.QbDialogUtils;
 import com.example.quickbloxchat.qb.VerboseQbChatConnectionListener;
+import com.example.quickbloxchat.utils.CollectionsUtils;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBSignaling;
 import com.quickblox.chat.QBWebRTCSignaling;
@@ -49,6 +56,8 @@ import com.quickblox.sample.core.utils.imagepick.OnImagePickedListener;
 import com.quickblox.ui.kit.chatmessage.adapter.listeners.QBChatAttachClickListener;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
+import com.quickblox.videochat.webrtc.QBRTCSession;
+import com.quickblox.videochat.webrtc.QBRTCTypes;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 
@@ -64,7 +73,8 @@ import java.util.List;
 
 
 public class ChatActivity extends BaseActivity implements OnImagePickedListener, View.OnClickListener {
-    public static final String EXTRA_DIALOG_ID = "dialogId";;
+    public static final String EXTRA_DIALOG_ID = "dialogId";
+    public static final String userId = "userId";
     private static final String TAG = ChatActivity.class.getSimpleName();
     private static final int REQUEST_CODE_ATTACHMENT = 721;
     private static final int REQUEST_CODE_SELECT_PEOPLE = 752;
@@ -86,9 +96,20 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
     private TextView tv_title;
     private ImageView iv_firsticon;
 
-    public static void startForResult(Activity activity, int code, QBChatDialog dialogId) {
+    private FloatingActionButton videoButton;
+    private Integer qbUserId;
+
+    public static void start(Context context, boolean isRunForCall) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra(Consts.EXTRA_IS_STARTED_FOR_CALL, isRunForCall);
+        context.startActivity(intent);
+    }
+
+    public static void startForResult(Activity activity, int code, QBChatDialog dialogId, Integer id) {
         Intent intent = new Intent(activity, ChatActivity.class);
         intent.putExtra(ChatActivity.EXTRA_DIALOG_ID, dialogId);
+        intent.putExtra(ChatActivity.userId, id);
         activity.startActivityForResult(intent, code);
     }
 
@@ -102,6 +123,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         Log.v(TAG, "onCreate ChatActivity on Thread ID = " + Thread.currentThread().getId());
 
         qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
+        qbUserId = getIntent().getIntExtra(userId, 0);
 
         Log.v(TAG, "deserialized dialog = " + qbChatDialog);
         qbChatDialog.initForChat(QBChatService.getInstance());
@@ -323,6 +345,10 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
         iv_firsticon = findViewById(R.id.iv_1sticon);
         tv_title = findViewById(R.id.tv_title);
         progressBar = _findViewById(R.id.progress_chat);
+
+        videoButton = findViewById(R.id.video_floating_button);
+        videoButton.setOnClickListener(this);
+
         attachmentPreviewContainerLayout = _findViewById(R.id.layout_attachment_preview_container);
 
         attachmentPreviewAdapter = new AttachmentPreviewAdapter(this,
@@ -602,7 +628,53 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
             case R.id.iv_1sticon:
                 onBackPressed();
                 break;
+
+            case R.id.video_floating_button:
+                if (isLoggedInChat()) {
+                    startCall(true);
+                }
+//                if (checker.lacksPermissions(Consts.PERMISSIONS)) {
+//                    startPermissionsActivity(false);
+//                }
+                break;
         }
+    }
+
+
+    private void startCall(boolean isVideoCall) {
+//        if (opponentsAdapter.getSelectedItems().size() > Consts.MAX_OPPONENTS_COUNT) {
+//            Toaster.longToast(String.format(getString(R.string.error_max_opponents_count),
+//                    Consts.MAX_OPPONENTS_COUNT));
+//            return;
+//        }
+//
+//        if (opponentsAdapter.getSelectedItems().size() == 0) {
+//            Toast.makeText(this, "Please select at least one friend", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+
+
+        Log.d(TAG, "startCall()");
+        ArrayList<Integer> opponentsList = new ArrayList<>();
+
+
+        opponentsList.add(qbUserId);
+
+
+        QBRTCTypes.QBConferenceType conferenceType = isVideoCall
+                ? QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_VIDEO
+                : QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_AUDIO;
+
+        QBRTCClient qbrtcClient = QBRTCClient.getInstance(getApplicationContext());
+
+        QBRTCSession newQbRtcSession = qbrtcClient.createNewSessionWithOpponents(opponentsList, conferenceType);
+
+        WebRtcSessionManager.getInstance(this).setCurrentSession(newQbRtcSession);
+
+        //PushNotificationSender.sendPushMessage(opponentsList, currentUser.getFullName());
+
+        CallActivity.start(this, false);
+        Log.d(TAG, "conferenceType = " + conferenceType);
     }
 
     private class ChatMessageListener extends QbChatDialogMessageListenerImp {
@@ -690,5 +762,22 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
 
         // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(ChatActivity.this, R.color.appThemeColor));
+    }
+
+
+    private boolean isLoggedInChat() {
+        if (!QBChatService.getInstance().isLoggedIn()) {
+            Toaster.shortToast(R.string.dlg_signal_error);
+            tryReLoginToChat();
+            return false;
+        }
+        return true;
+    }
+
+    private void tryReLoginToChat() {
+        if (sharedPrefsHelper.hasQbUser()) {
+            QBUser qbUser = sharedPrefsHelper.getQbUser();
+            CallService.start(this, qbUser);
+        }
     }
 }

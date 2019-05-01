@@ -41,12 +41,11 @@
     <string name="action_screen_share">Screen share</string>
     <string name="pref_audiocodec_key">pref_audio_codec</string>
     <string name="pref_audiocodec_def">ISAC</string>
+
+
     <string name="pref_disable_built_in_aec_key">disable_built_in_aec_preference</string>
     <string name="pref_disable_built_in_aec_default">false</string>
-    <string name="pref_noaudioprocessing_key">audioprocessing_preference</string>
-    <string name="pref_noaudioprocessing_default">false</string>
-    <string name="pref_opensles_key">opensles_preference</string>
-    <string name="pref_opensles_default">false</string>
+
     <string name="pref_hwcodec_key">hwcodec_preference</string>
     <string name="pref_hwcodec_default">true</string>
     <string name="pref_resolution_key">resolution_preference</string>
@@ -60,6 +59,55 @@
     <string name="pref_disconnect_time_interval_default_value">10</string>
     <string name="pref_dialing_time_interval_key">Dialing_time_interval</string>
     <string name="pref_dialing_time_interval_default_value">5</string>
-    <string name="pref_manage_speakerphone_by_proximity_key">manage_speakerphone_by_proximity_preference</string>
+
+
+    <string name="title_video_category">Video</string>
+    <string name="title_call_settings_category">Call Settings</string>
+
+    <string name="pref_opensles_key">opensles_preference</string>
+    <string name="pref_opensles_title">Use OpenSL ES for audio playback</string>
+    <string name="pref_opensles_dlg">Use OpenSL ES for audio playback</string>
+    <string name="pref_opensles_default">false</string>
+
+    <string name="pref_noaudioprocessing_key">audioprocessing_preference</string>
+    <string name="pref_noaudioprocessing_title">Disable audio processing</string>
+    <string name="pref_noaudioprocessing_dlg">Disable audio processing pipeline</string>
+    <string name="pref_noaudioprocessing_default">false</string>
+
+
+    <string name="pref_manage_speakerphone_by_proximity_title">Manage Speaker Phone by Proximity Sensor</string>
+    <string name="pref_manage_speakerphone_by_proximity_dlg">Manage Speaker Phone by Proximity Sensor</string>
+    <string name="pref_manage_speakerphone_by_proximity_summary">Enables managing of Speaker Phone by Proximity Sensor for Audio calls</string>
     <string name="pref_manage_speakerphone_by_proximity_default">false</string>
+    <string name="pref_manage_speakerphone_by_proximity_key">manage_speakerphone_by_proximity_preference</string>
+
+    <string name="pref_hwcodec_title">Video codec hardware acceleration</string>
+
+
+
+    <string name="pref_built_in_aec_not_available">Built-in AEC is not available</string>
+    <string name="pref_disable_built_in_aec_title">Disable built-in AEC</string>
+    <string name="pref_disable_built_in_aec_dlg">Disable built-in AEC</string>
+    <string name="subtitle_text_logged_in_as">Logged in as %s</string>
+    <string name="permission_unavailable">%s is not available now!</string>
+    <string name="dlg_signal_error">Disconnected - Please check your internet connection</string>
+    <string name="connection_was_lost">Connection lost</string>
+    <string name="pref_resolution_default">-1</string>
+    <string name="pref_resolution_dlg">Enter RTC local video resolution</string>
+    <string name="pref_resolution_title">Video Format</string>
+    <string name="pref_startbitratevalue_title">Bandwidth (0-2000)</string>
+    <string name="pref_frame_rate_title">Frame Rate (0-30)</string>
+    <string name="pref_audiocodec_dlg">Select default audio codec</string>
+    <string name="pref_audiocodec_title">Default audio codec</string>
+    <string name="pref_videocodec_default">0</string>
+    <string name="pref_videocodec_dlg">Select default video codec</string>
+    <string name="pref_videocodec_key">videocodec_preference</string>
+    <string name="pref_videocodec_title">Default video codec</string>
+    <string name="pref_answer_time_interval_title">Answer Time Interval (15-90s)</string>
+    <string name="pref_disconnect_time_interval_title">Disconnect Time Interval (10-90s)</string>
+    <string name="pref_dialing_time_interval_title">Dialing Time Interval (3-10s)</string>
+    <string name="text_incoming_audio_call">Audio Call Incoming</string>
+    <string name="text_incoming_video_call">Incoming video call</string>
+    <string name="stop_share">Stop sharing</string>
+
 </resources>

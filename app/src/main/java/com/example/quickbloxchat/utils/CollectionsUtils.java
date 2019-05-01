@@ -1,4 +1,4 @@
-package com.example.quickbloxchat;
+package com.example.quickbloxchat.utils;
 
 import com.quickblox.core.helper.StringifyArrayList;
 import com.quickblox.users.model.QBUser;

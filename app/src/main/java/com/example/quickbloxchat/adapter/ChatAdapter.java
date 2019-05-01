@@ -12,7 +12,7 @@ import com.devspark.robototextview.widget.RobotoTextView;
 
 import com.example.quickbloxchat.ChatHelper;
 import com.example.quickbloxchat.R;
-import com.example.quickbloxchat.TimeUtils;
+import com.example.quickbloxchat.utils.TimeUtils;
 import com.example.quickbloxchat.qb.PaginationHistoryListener;
 import com.example.quickbloxchat.qb.QbUsersHolder;
 import com.quickblox.chat.model.QBAttachment;

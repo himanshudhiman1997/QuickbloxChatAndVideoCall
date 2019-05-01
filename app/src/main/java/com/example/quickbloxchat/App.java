@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 
 import com.example.quickbloxchat.model.SampleConfigs;
+import com.example.quickbloxchat.utils.QBResRequestExecutor;
 import com.quickblox.sample.core.CoreApp;
 import com.quickblox.sample.core.utils.ActivityLifecycle;
 
@@ -18,6 +19,7 @@ public class App extends CoreApp {
     //private static CommonInstances commonInstances;
     private static App instance;
 
+    private static QBResRequestExecutor qbResRequestExecutor;
     public static App getContext() {
         return instance;
     }
@@ -68,5 +70,11 @@ public class App extends CoreApp {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+
+    public static synchronized QBResRequestExecutor getQbResRequestExecutor() {
+        return qbResRequestExecutor == null
+                ? qbResRequestExecutor = new QBResRequestExecutor()
+                : qbResRequestExecutor;
     }
 }

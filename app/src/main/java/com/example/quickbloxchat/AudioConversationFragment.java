@@ -13,6 +13,7 @@ import android.widget.ToggleButton;
 
 
 import com.example.quickbloxchat.activity.CallActivity;
+import com.example.quickbloxchat.utils.CollectionsUtils;
 import com.quickblox.sample.core.utils.UiUtils;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.AppRTCAudioManager;

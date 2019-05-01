@@ -1,7 +1,8 @@
 package com.example.quickbloxchat;
 
 
-import com.omninos.secretdoors.activity.CallActivity;
+
+import com.example.quickbloxchat.activity.CallActivity;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionEventsCallback;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionStateCallback;
 

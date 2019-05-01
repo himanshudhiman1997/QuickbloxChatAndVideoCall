@@ -3,7 +3,8 @@ package com.example.quickbloxchat;
 import android.content.Context;
 import android.util.Log;
 
-import com.omninos.secretdoors.activity.OpponentsActivity;
+
+import com.example.quickbloxchat.activity.ChatActivity;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacksImpl;
 
@@ -44,7 +45,7 @@ public class WebRtcSessionManager extends QBRTCClientSessionCallbacksImpl {
 
         if (currentSession == null){
             setCurrentSession(session);
-            OpponentsActivity.start(context, true);
+            ChatActivity.start(context, true);
         }
     }
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.quickbloxchat"
-        minSdkVersion 15
+        minSdkVersion 28
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -44,9 +44,8 @@ dependencies {
 
     implementation "com.github.orangegangsters:swipy:$rootProject.swipyVersion@aar"
 
-    implementation 'com.dynamitechetan.flowinggradient:flowinggradient:1.1'
 
     //video call
-    implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:3.7.0"
+    implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:3.8.1"
 
 }

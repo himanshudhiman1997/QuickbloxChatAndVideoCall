@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.quickbloxchat.QBRTCSessionUtils;
+import com.example.quickbloxchat.utils.QBRTCSessionUtils;
 import com.example.quickbloxchat.R;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCSession;
