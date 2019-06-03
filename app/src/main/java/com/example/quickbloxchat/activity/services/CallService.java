@@ -124,6 +124,7 @@ public class CallService extends Service {
 
     private void loginToChat(QBUser qbUser) {
         try {
+            qbUser.setPassword("qwerty12");
             chatService.login(qbUser, new QBEntityCallback<QBUser>() {
                 @Override
                 public void onSuccess(QBUser qbUser, Bundle bundle) {

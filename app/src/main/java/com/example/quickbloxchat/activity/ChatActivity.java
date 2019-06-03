@@ -33,6 +33,7 @@ import com.example.quickbloxchat.WebRtcSessionManager;
 import com.example.quickbloxchat.activity.services.CallService;
 import com.example.quickbloxchat.adapter.AttachmentPreviewAdapter;
 import com.example.quickbloxchat.adapter.ChatAdapter;
+import com.example.quickbloxchat.db.QbUsersDbManager;
 import com.example.quickbloxchat.qb.PaginationHistoryListener;
 import com.example.quickbloxchat.qb.QbChatDialogMessageListenerImp;
 import com.example.quickbloxchat.qb.QbDialogHolder;
@@ -99,6 +100,14 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
     private FloatingActionButton videoButton;
     private Integer qbUserId;
 
+    private boolean isRunForCall;
+
+    private QBUser currentUser;
+    private QbUsersDbManager dbManager;
+
+    private WebRtcSessionManager webRtcSessionManager;
+
+
     public static void start(Context context, boolean isRunForCall) {
         Intent intent = new Intent(context, ChatActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -122,29 +131,55 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
 
         Log.v(TAG, "onCreate ChatActivity on Thread ID = " + Thread.currentThread().getId());
 
-        qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
-        qbUserId = getIntent().getIntExtra(userId, 0);
+        if((QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID) != null)
+        {
+            qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
+            qbUserId = getIntent().getIntExtra(userId, 0);
 
-        Log.v(TAG, "deserialized dialog = " + qbChatDialog);
-        qbChatDialog.initForChat(QBChatService.getInstance());
+            Log.v(TAG, "deserialized dialog = " + qbChatDialog);
+            qbChatDialog.initForChat(QBChatService.getInstance());
 
-        initViews();
-        setUpAppBar();
-        initMessagesRecyclerView();
+            initViews();
+            setUpAppBar();
+            initMessagesRecyclerView();
 
-        chatMessageListener = new ChatMessageListener();
+            chatMessageListener = new ChatMessageListener();
 
-        qbChatDialog.addMessageListener(chatMessageListener);
+            qbChatDialog.addMessageListener(chatMessageListener);
 
-        initChatConnectionListener();
+            initChatConnectionListener();
 
-        initChat();
+            initChat();
 
-        //OnlineOflineAction("1");
+            //OnlineOflineAction("1");
+        }
+
+
+
+        else  {
+            initFields();
+
+            if (isRunForCall && webRtcSessionManager.getCurrentSession() != null) {
+                CallActivity.start(ChatActivity.this, true);
+            }
+        }
+
+
+
 
 
     }
 
+    private void initFields() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            isRunForCall = extras.getBoolean(Consts.EXTRA_IS_STARTED_FOR_CALL);
+        }
+
+        currentUser = sharedPrefsHelper.getQbUser();
+        dbManager = QbUsersDbManager.getInstance(getApplicationContext());
+        webRtcSessionManager = WebRtcSessionManager.getInstance(getApplicationContext());
+    }
 
 
     private void setUpAppBar() {
@@ -179,15 +214,21 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
     @Override
     protected void onResume() {
         super.onResume();
-        addChatMessagesAdapterListeners();
-        ChatHelper.getInstance().addConnectionListener(chatConnectionListener);
+        if((QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID) != null)
+        {
+            addChatMessagesAdapterListeners();
+            ChatHelper.getInstance().addConnectionListener(chatConnectionListener);
+        }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        removeChatMessagesAdapterListeners();
-        ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
+        if((QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID) != null) {
+            removeChatMessagesAdapterListeners();
+            ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
+        }
     }
 
     @Override
@@ -215,6 +256,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener,
 
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,6 +1,7 @@
 package com.example.quickbloxchat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 
@@ -46,6 +47,8 @@ public class WebRtcSessionManager extends QBRTCClientSessionCallbacksImpl {
         if (currentSession == null){
             setCurrentSession(session);
             ChatActivity.start(context, true);
+
+
         }
     }
 

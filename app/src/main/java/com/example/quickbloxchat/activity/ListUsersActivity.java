@@ -1,6 +1,7 @@
 package com.example.quickbloxchat.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,6 +26,8 @@ import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.chat.utils.DialogUtils;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
+import com.quickblox.core.request.QBPagedRequestBuilder;
+import com.quickblox.core.request.QBRequestGetBuilder;
 import com.quickblox.sample.core.ui.dialog.ProgressDialogFragment;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
@@ -63,7 +66,11 @@ public class ListUsersActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void retrieveAllUser() {
-        QBUsers.getUsers(null, null).performAsync(new QBEntityCallback<ArrayList<QBUser>>() {
+        QBPagedRequestBuilder qbRequestGetBuilder = new QBPagedRequestBuilder();
+        qbRequestGetBuilder.setPage(1);
+        qbRequestGetBuilder.setPerPage(100);
+
+        QBUsers.getUsers(qbRequestGetBuilder, null).performAsync(new QBEntityCallback<ArrayList<QBUser>>() {
             @Override
             public void onSuccess(ArrayList<QBUser> qbUsers, Bundle bundle) {
 

@@ -1,5 +1,6 @@
 package com.example.quickbloxchat.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.quickbloxchat.App;
+import com.example.quickbloxchat.ChatHelper;
+import com.example.quickbloxchat.Consts;
 import com.example.quickbloxchat.R;
+import com.example.quickbloxchat.activity.services.CallService;
+import com.quickblox.auth.session.QBSessionManager;
 import com.quickblox.auth.session.QBSettings;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
+import com.quickblox.sample.core.utils.SharedPrefsHelper;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 
@@ -27,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText userEditText, passEditText;
 
+    private SharedPrefsHelper sharedPrefsHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +46,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initializeFramework();
 
+        restoreChatSession();
+
+    }
+
+    private void restoreChatSession() {
+        if (ChatHelper.getInstance().isLogged() && sharedPrefsHelper.hasQbUser()) {
+            startLoginService(sharedPrefsHelper.getQbUser());
+
+        } else {
+            QBUser currentUser = getUserFromSession();
+            if (currentUser == null) {
+
+
+            } else {
+
+                startLoginService(currentUser);
+                //loginToChat(currentUser);
+            }
+        }
+    }
+
+    private QBUser getUserFromSession() {
+        QBUser user = SharedPrefsHelper.getInstance().getQbUser();
+        QBSessionManager qbSessionManager = QBSessionManager.getInstance();
+        if (qbSessionManager.getSessionParameters() == null) {
+            ChatHelper.getInstance().destroy();
+            return null;
+        }
+        Integer userId = qbSessionManager.getSessionParameters().getUserId();
+        if(user!=null)
+        {
+            user.setId(userId);
+        }
+
+        return user;
+    }
+
+    protected void startLoginService(QBUser qbUser) {
+        CallService.start(this, qbUser);
     }
 
     private void initializeFramework() {
@@ -65,10 +113,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 final String password = passEditText.getText().toString();
 
                 QBUser qbUser = new QBUser(userName, password);
+                qbUser.setPassword(password);
+                qbUser.setOldPassword(password);
 
                 QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
                     @Override
                     public void onSuccess(QBUser qbUser, Bundle bundle) {
+                        startAfterLoginService(qbUser);
                         Toast.makeText(MainActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
 
                         QBChatService.setDebugEnabled(true); // enable chat logging
@@ -98,5 +149,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_btnSignup:
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
         }
+    }
+
+    private void startAfterLoginService(QBUser qbUser) {
+        Intent tempIntent = new Intent(this, CallService.class);
+        PendingIntent pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0);
+        CallService.start(this, qbUser, pendingIntent);
     }
 }
